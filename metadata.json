@@ -1,0 +1,5 @@
+{
+  "name": " SentimentIQ: Customer Feedback Monitor",
+  "description": "A high-end sentiment monitoring dashboard for hackathons. Analyze customer reviews using Gemini AI, visualize sentiment trends with interactive charts, and extract key praises and complaints automatically.",
+  "requestFramePermissions": []
+}

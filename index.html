@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentira AI | Neural Intelligence</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body { 
+      font-family: 'Inter', sans-serif;
+      background-color: #020617; /* Slate 950 */
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.2) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(88, 28, 135, 0.2) 0px, transparent 50%);
+      color: #f8fafc;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* IMPROVED LIGHT MODE PALETTE */
+    body.light-theme {
+      background-color: #F0F4FA !important;
+      background-image: none !important;
+      color: #0B0F1A !important;
+    }
+
+    .font-syne { font-family: 'Syne', sans-serif; }
+    
+    .glass-card {
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    body.light-theme .glass-card {
+      background: #FFFFFF !important;
+      border: 1px solid #D1D5DB !important;
+      box-shadow: 0px 4px 12px rgba(0,0,0,0.08) !important;
+      color: #0B0F1A !important;
+    }
+
+    /* Light Mode Typography Overrides */
+    body.light-theme h1, 
+    body.light-theme h2, 
+    body.light-theme h3, 
+    body.light-theme .text-white,
+    body.light-theme .text-slate-100,
+    body.light-theme .text-slate-200 {
+      color: #0B0F1A !important;
+    }
+
+    body.light-theme .text-slate-400, 
+    body.light-theme .text-slate-300 {
+      color: #374151 !important; /* Secondary Text */
+    }
+
+    body.light-theme .text-slate-500,
+    body.light-theme .text-slate-600 {
+      color: #6B7280 !important; /* Neutral Text */
+    }
+
+    /* Light Mode Sentiment/Accent Class Overrides */
+    body.light-theme .text-emerald-400 { color: #16A34A !important; } /* Positive */
+    body.light-theme .text-rose-400 { color: #DC2626 !important; }   /* Negative */
+    body.light-theme .text-sky-400 { color: #6B7280 !important; }    /* Neutral */
+    body.light-theme .text-cyan-400, 
+    body.light-theme .text-violet-400,
+    body.light-theme .text-indigo-300,
+    body.light-theme .text-indigo-400 { color: #2563EB !important; } /* Accent */
+
+    /* Background Utility Overrides for Light Mode */
+    body.light-theme .bg-emerald-400 { background-color: #16A34A !important; }
+    body.light-theme .bg-rose-400 { background-color: #DC2626 !important; }
+    body.light-theme .bg-sky-400 { background-color: #6B7280 !important; }
+    body.light-theme .bg-cyan-400, 
+    body.light-theme .bg-violet-400,
+    body.light-theme .bg-indigo-500 { background-color: #2563EB !important; }
+
+    /* Fix for inner card elements like auto-reply or ticket details in Light Mode */
+    body.light-theme .bg-white\/5,
+    body.light-theme .bg-cyan-500\/5,
+    body.light-theme .bg-emerald-500\/5,
+    body.light-theme .bg-rose-500\/5,
+    body.light-theme .bg-sky-500\/5,
+    body.light-theme .bg-violet-500\/5,
+    body.light-theme .bg-slate-800\/50 {
+      background-color: #FFFFFF !important;
+      border: 1px solid #D1D5DB !important;
+    }
+
+    /* Muted backgrounds for specific elements like progress bars */
+    body.light-theme .bg-slate-900\/40,
+    body.light-theme .bg-slate-950\/40,
+    body.light-theme .bg-slate-800\/50 {
+      background-color: #F3F4F6 !important;
+    }
+
+    /* Shadow/Glow removals in Light Mode */
+    body.light-theme .glow-cyan, 
+    body.light-theme .glow-violet { 
+      filter: none !important; 
+    }
+    
+    body.light-theme .border-cyan-500\/20,
+    body.light-theme .border-emerald-500\/20,
+    body.light-theme .border-rose-500\/20,
+    body.light-theme .border-violet-500\/20,
+    body.light-theme .border-indigo-500\/30,
+    body.light-theme .border-white\/5,
+    body.light-theme .border-white\/10 {
+      border-color: #D1D5DB !important;
+    }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+    body.light-theme ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); }
+
+    .animate-flicker {
+      animation: flicker 2s linear infinite;
+    }
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.8; }
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "recharts": "https://esm.sh/recharts@^3.7.0"
+  }
+}
+</script>
+</head>
+<body class="min-h-screen">
+  <div id="root"></div>
+</body>
+</html>
